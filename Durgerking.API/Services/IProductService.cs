@@ -8,5 +8,6 @@ namespace Durgerking.API.Services
         Task<Product> GetProduct(int id);
         Task<Product> CreateProduct(Product newProduct);
         Task<bool> DeleteProduct(int id);
+        Task<Product> UpdateProduct(Product product);
     }
 }

@@ -1,19 +1,17 @@
-﻿using Durgerking.API.Models;
+﻿using Durgerking.API.Data;
+using Durgerking.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Durgerking.API.Services
 {
     public class ProductService : IProductService
     {
-        private static List<Product> products = new List<Product>()
+        private readonly AppDbContext _dbContext;
+
+        public ProductService(AppDbContext dbContext)
         {
-            new Product
-            {
-                Id = 1,
-                Name = "Gamburger",
-                Price = 25000,
-                Description = "Mazali va yoqimli zararli fast foodlar"
-            }
-        };
+            _dbContext = dbContext;
+        }
         public async Task<Product> CreateProduct(Product newProduct)
         {
             var product = new Product
@@ -24,29 +22,52 @@ namespace Durgerking.API.Services
                 Description = newProduct.Description
             };
 
-            products.Add(product);
-            return await Task.FromResult(product);
+            await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
+            return product;
         }
 
         public async Task<bool> DeleteProduct(int id)
         {
-            var product = await GetProduct(id);
+            var product = await _dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            products.Remove(product);
+            if (product is null)
+                return false;
+
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
             return true;
         }
 
         public async Task<Product> GetProduct(int id)
         {
-            var product = products.Find(p => p.Id == id);
+            var product = await _dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (product is null)
                 return null;
 
-            return await Task.FromResult(product);
+            return product;
         }
 
         public async Task<List<Product>> GetProducts()
-            => await Task.FromResult(products);
+            => await _dbContext.Products.ToListAsync();
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            var updateProduct = await _dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id == product.Id);
+
+            if (updateProduct is null)
+                return null;
+
+            updateProduct.Name = product.Name;
+            updateProduct.Price = product.Price;
+            updateProduct.Description = product.Description;
+
+            _dbContext.SaveChanges();
+            return updateProduct;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Durgerking.API.Models;
+﻿using Azure.Core;
+using Durgerking.API.Models;
 using Durgerking.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,26 +18,32 @@ namespace Durgerking.API.Controllers
         [HttpGet("GetProducts")] //malumot olish 
         public async Task<IActionResult> GetProducts()
         {
-            var products = await service.GetProducts();
-            return Ok(products);
+            var request = await service.GetProducts();
+            return Ok(request);
         }
         [HttpGet("GetProduct/{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product = await service.GetProduct(id);
-            return Ok(product);
+            var request = await service.GetProduct(id);
+            return Ok(request);
         }
-        [HttpPost("CreateProduct")]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateProduct(Product newProduct)
         {
-            var product = await service.CreateProduct(newProduct);
-            return Ok(product);
+            var request = await service.CreateProduct(newProduct);
+            return Ok(request);
         }
-        [HttpDelete("DeleteProduct")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await service.DeleteProduct(id);
-            return Ok(product);
+            var request = await service.DeleteProduct(id);
+            return Ok(request);
+        }
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateProduct(Product product)
+        {
+            var request = await service.UpdateProduct(product);
+            return Ok(request);
         }
     }
 }
