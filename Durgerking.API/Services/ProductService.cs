@@ -1,4 +1,5 @@
 ﻿using Durgerking.API.Data;
+using Durgerking.API.Dtos;
 using Durgerking.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,18 +13,21 @@ namespace Durgerking.API.Services
         {
             _dbContext = dbContext;
         }
-        public async Task<Product> CreateProduct(Product newProduct)
+
+        public async Task<Product> CreateProduct(CreateProductDto newProduct)
         {
             var product = new Product
             {
-                Id = newProduct.Id,
                 Name = newProduct.Name,
                 Price = newProduct.Price,
-                Description = newProduct.Description
+                Quantity = newProduct.Quantity,
+                Description = newProduct.Description,
+                Created = DateTime.UtcNow.AddHours(5)
             };
 
             await _dbContext.Products.AddAsync(product);
             await _dbContext.SaveChangesAsync();
+
             return product;
         }
 
@@ -54,20 +58,23 @@ namespace Durgerking.API.Services
         public async Task<List<Product>> GetProducts()
             => await _dbContext.Products.ToListAsync();
 
-        public async Task<Product> UpdateProduct(Product product)
+        public async Task<Product> UpdateProduct(int id, UpdateProductDto product)
         {
-            var updateProduct = await _dbContext.Products
-                .FirstOrDefaultAsync(p => p.Id == product.Id);
+            var updated = await _dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (updateProduct is null)
+
+            if (updated is null)
                 return null;
 
-            updateProduct.Name = product.Name;
-            updateProduct.Price = product.Price;
-            updateProduct.Description = product.Description;
+            updated.Name = product.Name;
+            updated.Price = product.Price;
+            updated.Description = product.Description;
+            updated.Quantity = product.Quantity;
+            updated.Updated = DateTime.UtcNow.AddHours(5);
 
-            _dbContext.SaveChanges();
-            return updateProduct;
+            await _dbContext.SaveChangesAsync();
+            return updated;
         }
     }
 }

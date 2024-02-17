@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Durgerking.API.Dtos;
 using Durgerking.API.Models;
 using Durgerking.API.Services;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace Durgerking.API.Controllers
             return Ok(request);
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateProduct(Product newProduct)
+        public async Task<IActionResult> CreateProduct(CreateProductDto newProduct)
         {
             var request = await service.CreateProduct(newProduct);
             return Ok(request);
@@ -40,9 +41,9 @@ namespace Durgerking.API.Controllers
             return Ok(request);
         }
         [HttpPut("Update")]
-        public async Task<IActionResult> UpdateProduct(Product product)
+        public async Task<IActionResult> UpdateProduct(int id, UpdateProductDto product)
         {
-            var request = await service.UpdateProduct(product);
+            var request = await service.UpdateProduct(id, product);
             return Ok(request);
         }
     }

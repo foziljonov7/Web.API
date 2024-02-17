@@ -1,4 +1,5 @@
-﻿using Durgerking.API.Models;
+﻿using Durgerking.API.Dtos;
+using Durgerking.API.Models;
 
 namespace Durgerking.API.Services
 {
@@ -6,8 +7,8 @@ namespace Durgerking.API.Services
     {
         Task<List<Product>> GetProducts();
         Task<Product> GetProduct(int id);
-        Task<Product> CreateProduct(Product newProduct);
+        Task<Product> CreateProduct(CreateProductDto newProduct);
         Task<bool> DeleteProduct(int id);
-        Task<Product> UpdateProduct(Product product);
+        Task<Product> UpdateProduct(int id, UpdateProductDto product);
     }
 }
