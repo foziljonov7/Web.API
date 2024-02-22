@@ -18,5 +18,8 @@ namespace Mobile.API.Entity
         public string Made { get; set; }
         [Required]
         public string Imei { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

@@ -58,7 +58,9 @@ namespace Mobile.API.Services
         }
 
         public async Task<List<Phone>> GetPhonesAsync()
-            => await dbContext.Phones.ToListAsync();
+            => await dbContext.Phones
+                .Include(p => p.Category)
+                .ToListAsync();
 
         public async Task<(double totalPrice, int quantity)> SalesPhoneAsync(Guid id, int quantity)
         {
