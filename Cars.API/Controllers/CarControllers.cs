@@ -10,7 +10,7 @@ namespace Cars.API.Controllers
         [HttpGet("/")]
         public IActionResult Hello()
         {
-            return Ok("Welcome to Car API");
+            return Ok("Welcome to Car project");
         }
     }
 }
