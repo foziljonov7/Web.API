@@ -15,15 +15,18 @@ namespace Todo.API.Controllers
         private readonly ITodoService service;
         private readonly IValidator<CreatedTodoDtos> createValidator;
         private readonly IValidator<UpdateTodoDto> updateValidator;
+        private readonly ILogger<TodoController> logger;
 
         public TodoController(
             ITodoService service,
             IValidator<CreatedTodoDtos> createValidator,
-            IValidator<UpdateTodoDto> updateValidator)
+            IValidator<UpdateTodoDto> updateValidator,
+            ILogger<TodoController> logger)
         {
             this.service = service;
             this.createValidator = createValidator;
             this.updateValidator = updateValidator;
+            this.logger = logger;
         }
         [HttpGet("/")]
         public async Task<IActionResult> GetTodosAsync()
@@ -37,6 +40,7 @@ namespace Todo.API.Controllers
             if (request is null)
                 return BadRequest("Todo is null");
 
+            logger.LogInformation($"GetTodoAsync({id}) metodi orqali malutot olindi");
             return Ok(request);
         }
 

@@ -1,5 +1,6 @@
 ﻿using Todo.API.Dtos;
 using Todo.API.Entity;
+using Todo.API.Response;
 
 namespace Todo.API.Services
 {
@@ -7,8 +8,8 @@ namespace Todo.API.Services
     {
         Task<List<TodoModel>> GetTodosAsync();
         Task<TodoModel> GetTodoAsync(Guid id);
-        Task<TodoModel> CreateTodoAsync(CreatedTodoDtos newTodo);
-        Task<TodoModel> UpdateTodoAsync(Guid id, UpdateTodoDto update);
-        Task<bool> DeleteTodoAsync(Guid id);
+        Task<GeneralResponse> CreateTodoAsync(CreatedTodoDtos newTodo);
+        Task<GeneralResponse> UpdateTodoAsync(Guid id, UpdateTodoDto update);
+        Task<GeneralResponse> DeleteTodoAsync(Guid id);
     }
 }

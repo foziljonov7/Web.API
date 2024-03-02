@@ -2,6 +2,7 @@
 using Todo.API.Data;
 using Todo.API.Dtos;
 using Todo.API.Entity;
+using Todo.API.Response;
 
 namespace Todo.API.Services
 {
@@ -13,7 +14,7 @@ namespace Todo.API.Services
         {
             this.dbContext = dbContext;
         }
-        public async Task<TodoModel> CreateTodoAsync(CreatedTodoDtos newTodo)
+        public async Task<GeneralResponse> CreateTodoAsync(CreatedTodoDtos newTodo)
         {
             var todo = new TodoModel
             {
@@ -26,21 +27,21 @@ namespace Todo.API.Services
             await dbContext.Todos.AddAsync(todo);
             await dbContext.SaveChangesAsync();
 
-            return todo;
+            return new GeneralResponse(true, "Successfully created");
         }
 
-        public async Task<bool> DeleteTodoAsync(Guid id)
+        public async Task<GeneralResponse> DeleteTodoAsync(Guid id)
         {
             var todo = await dbContext.Todos
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (todo is null)
-                return false;
+                return new GeneralResponse(false, "Todo is not found");
 
             dbContext.Todos.Remove(todo);
             await dbContext.SaveChangesAsync();
 
-            return true;
+            return new GeneralResponse(true, "Successfully deleted");
         }
 
         public async Task<TodoModel> GetTodoAsync(Guid id)
@@ -57,20 +58,20 @@ namespace Todo.API.Services
         public async Task<List<TodoModel>> GetTodosAsync()
             => await dbContext.Todos.ToListAsync();
 
-        public async Task<TodoModel> UpdateTodoAsync(Guid id, UpdateTodoDto update)
+        public async Task<GeneralResponse> UpdateTodoAsync(Guid id, UpdateTodoDto update)
         {
             var todo = await dbContext.Todos
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (todo is null)
-                return null;
+                return new GeneralResponse(false, "Todo is not found");
 
             todo.Title = update.Title;
             todo.Description = update.Description;
             todo.Updated = DateTime.UtcNow.AddHours(5);
 
             await dbContext.SaveChangesAsync();
-            return todo;
+            return new GeneralResponse(true, "Successfully saved");
         }
     }
 }
