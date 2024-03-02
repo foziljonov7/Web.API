@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Durgerking.API", "Durgerkin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile.API", "Mobile.API\Mobile.API.csproj", "{32386982-77EE-4BBD-B760-4C6D7514A6C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.API", "Todo.API\Todo.API.csproj", "{C10E444D-FB8E-49F9-B359-D7052CA8A369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.API", "Todo.API\Todo.API.csproj", "{C10E444D-FB8E-49F9-B359-D7052CA8A369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars.API", "Cars.API\Cars.API.csproj", "{8F99884F-C930-43CC-9270-B732BB48B8EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
