@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cars.API.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cars.API.Controllers
@@ -7,10 +8,13 @@ namespace Cars.API.Controllers
     [ApiController]
     public class CarControllers : ControllerBase
     {
+        private readonly ICarServices services;
+
+        public CarControllers(ICarServices services)
+            => this.services = services;
+
         [HttpGet("/")]
-        public IActionResult Hello()
-        {
-            return Ok("Welcome to Car project");
-        }
+        public async Task<IActionResult> GetCarsAsync()
+            => Ok(await services.GetCarsAsync());
     }
 }

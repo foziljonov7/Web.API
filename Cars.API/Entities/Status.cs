@@ -2,7 +2,9 @@
 {
     public enum Status
     {
-        OnSale,
-        OutOfStock
+        New,
+        InGood,
+        InBad,
+        Active
     }
 }

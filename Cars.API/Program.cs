@@ -1,4 +1,5 @@
 using Cars.API.Data;
+using Cars.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(connectionStrings));
+
+builder.Services.AddScoped<ICarServices, CarServices>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using Cars.API.Dtos;
 using Cars.API.Entities;
+using Cars.API.Response;
 
 namespace Cars.API.Services
 {
@@ -7,8 +8,8 @@ namespace Cars.API.Services
     {
         Task<List<Car>> GetCarsAsync();
         Task<Car> GetCarAsync(Guid id);
-        Task<Car> CreateCarAsync(CreateCarDto newCar);
-        Task<Car> UpdateCarAsync(Guid id, UpdateCarDto newCar);
-        Task<bool> DeleteCarAsync(Guid id);
+        Task<GeneralResponse> CreateCarAsync(CreateCarDto newCar);
+        Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCarDto newCar);
+        Task<GeneralResponse> DeleteCarAsync(Guid id);
     }
 }
