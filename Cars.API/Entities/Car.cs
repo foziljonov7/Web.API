@@ -8,6 +8,7 @@
         public string Probeg { get; set; }
         public string Color { get; set; }
         public string Engine { get; set; }
+        public Status Status { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
     }

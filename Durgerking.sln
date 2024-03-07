@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Durgerking.API", "Durgerking.API\Durgerking.API.csproj", "{1BB70186-AB8C-4880-BE83-B0B8CA6CE3C0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile.API", "Mobile.API\Mobile.API.csproj", "{32386982-77EE-4BBD-B760-4C6D7514A6C1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.API", "Todo.API\Todo.API.csproj", "{C10E444D-FB8E-49F9-B359-D7052CA8A369}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars.API", "Cars.API\Cars.API.csproj", "{8F99884F-C930-43CC-9270-B732BB48B8EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cars.API", "Cars.API\Cars.API.csproj", "{8F99884F-C930-43CC-9270-B732BB48B8EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,18 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BB70186-AB8C-4880-BE83-B0B8CA6CE3C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BB70186-AB8C-4880-BE83-B0B8CA6CE3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BB70186-AB8C-4880-BE83-B0B8CA6CE3C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BB70186-AB8C-4880-BE83-B0B8CA6CE3C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32386982-77EE-4BBD-B760-4C6D7514A6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32386982-77EE-4BBD-B760-4C6D7514A6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32386982-77EE-4BBD-B760-4C6D7514A6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32386982-77EE-4BBD-B760-4C6D7514A6C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C10E444D-FB8E-49F9-B359-D7052CA8A369}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU

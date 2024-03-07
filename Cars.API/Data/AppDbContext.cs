@@ -12,5 +12,15 @@ namespace Cars.API.Data
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Car>()
+                .HasOne(c => c.Category)
+                .WithMany()
+                .HasForeignKey(c => c.CategoryId);
+
+            base.OnModelCreating(builder);
+        }
     }
 }
