@@ -8,6 +8,7 @@ var connectionStrings = builder.Configuration.GetConnectionString("localhost");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(connectionStrings));
 
