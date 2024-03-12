@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cars.API", "Cars.API\Cars.API.csproj", "{8F99884F-C930-43CC-9270-B732BB48B8EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cars.Dashboard", "Cars.Dashboard\Cars.Dashboard.csproj", "{2DD851AB-3B34-4788-A8BD-363E0EF16474}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F99884F-C930-43CC-9270-B732BB48B8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD851AB-3B34-4788-A8BD-363E0EF16474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD851AB-3B34-4788-A8BD-363E0EF16474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD851AB-3B34-4788-A8BD-363E0EF16474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD851AB-3B34-4788-A8BD-363E0EF16474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
