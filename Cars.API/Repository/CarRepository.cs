@@ -3,19 +3,17 @@ using Cars.API.Dtos;
 using Cars.API.Entities;
 using Cars.API.Response;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Cars.API.Services
+namespace Cars.API.Repository
 {
-    public class CarServices : ICarServices
+    public class CarRepository : ICarRepository
     {
         private readonly AppDbContext _dbContext;
-        private TimeSpan difference;
-        public CarServices(AppDbContext dbContext)
+
+        public CarRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
         public async Task<GeneralResponse> CreateCarAsync(CreateCarDto newCar)
         {
             var car = new Car
@@ -42,10 +40,10 @@ namespace Cars.API.Services
             var product = await _dbContext.Cars
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (product is null) 
+            if (product is null)
                 return new GeneralResponse(false, "Is null");
 
-            _dbContext.Cars .Remove(product);
+            _dbContext.Cars.Remove(product);
             _dbContext.SaveChanges();
             return new GeneralResponse(true, "Successfully deleted");
         }
@@ -55,7 +53,7 @@ namespace Cars.API.Services
             var car = await _dbContext.Cars
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (car is null) 
+            if (car is null)
                 return null;
 
             var difference = DateTime.UtcNow.AddHours(5) - car.Created;
