@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Cars.API.Data;
 using Cars.API.Dtos;
 using Cars.API.Entities;
 using Cars.API.Repository;
 using Cars.API.Response;
 using Cars.API.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Cars.API.Services
 {

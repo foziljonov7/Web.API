@@ -9,9 +9,9 @@ namespace Cars.API.Validations
         public CreateCarValidation(AppDbContext dbContext)
         {
             RuleFor(dto => dto.Model)
-                .NotEmpty()
-                .MinimumLength(3)
-                .MaximumLength(50);
+               .NotEmpty()
+               .MinimumLength(3)
+               .MaximumLength(50);
             RuleFor(dto => dto.Price)
                 .NotEmpty();
             RuleFor(dto => dto.Probeg)
