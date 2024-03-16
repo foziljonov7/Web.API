@@ -18,11 +18,13 @@ namespace Cars.API.Repository
         {
             var car = new Car
             {
+                Id = Guid.NewGuid(),
                 Model = newCar.Model,
                 Price = newCar.Price,
                 Probeg = newCar.Probeg,
                 Color = newCar.Color,
                 Engine = newCar.Engine,
+                CategoryId = newCar.CategoryId,
                 Status = Status.Active
             };
 
@@ -61,7 +63,7 @@ namespace Cars.API.Repository
             if (difference.TotalDays <= 365 && car.Probeg < 10000)
                 car.Status = Status.New;
 
-            if (car.Probeg > 10000 && car.Probeg < 100000)
+            if (car.Probeg > 10000 && car.Probeg <= 100000)
                 car.Status = Status.InGood;
 
             if (car.Probeg > 100000)

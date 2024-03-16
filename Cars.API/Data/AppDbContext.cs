@@ -17,7 +17,7 @@ namespace Cars.API.Data
         {
             builder.Entity<Car>()
                 .HasOne(c => c.Category)
-                .WithMany(c => c.Cars)
+                .WithMany()
                 .HasForeignKey(c => c.CategoryId);
 
             base.OnModelCreating(builder);
