@@ -23,7 +23,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //Validators
 builder.Services.AddTransient<IValidator<CreateCarDto>, CreateCarValidation>();
-builder.Services.AddTransient<IValidator<UpdateCarDto>, UpdateCarValidation>();
+builder.Services.AddTransient<IValidator<UpdateCategoryDto>, UpdateCarValidation>();
 
 var app = builder.Build();
 
