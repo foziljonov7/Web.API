@@ -11,12 +11,12 @@ namespace Cars.API.Controllers
     {
         private readonly ICarRepository services;
         private readonly IValidator<CreateCarDto> createValidator;
-        private readonly IValidator<UpdateCategoryDto> updateValidator;
+        private readonly IValidator<UpdateCarDto> updateValidator;
 
         public CarControllers(
             ICarRepository services,
             IValidator<CreateCarDto> createValidator,
-            IValidator<UpdateCategoryDto> updateValidator)
+            IValidator<UpdateCarDto> updateValidator)
         {
             this.updateValidator = updateValidator;
             this.createValidator = createValidator;
@@ -45,7 +45,7 @@ namespace Cars.API.Controllers
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateCarAsync(
             [FromRoute] Guid id,
-            UpdateCategoryDto dto)
+            UpdateCarDto dto)
         {
             var validationResult = await updateValidator.ValidateAsync(dto);
 

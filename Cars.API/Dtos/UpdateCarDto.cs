@@ -1,6 +1,6 @@
 ﻿namespace Cars.API.Dtos
 {
-    public class UpdateCategoryDto
+    public class UpdateCarDto
     {
         public string Model { get; set; }
         public double Price { get; set; }

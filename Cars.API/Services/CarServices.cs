@@ -43,7 +43,7 @@ namespace Cars.API.Services
             return mapper.Map<List<Car>, List<CarViewModel>>(response);
         }
 
-        public async Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCategoryDto newCar)
+        public async Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCarDto newCar)
         {
             var response = await repository.UpdateCarAsync(id, newCar);
             return response;

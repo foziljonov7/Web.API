@@ -10,7 +10,7 @@ namespace Cars.API.Services
         Task<List<CarViewModel>> GetCarsAsync();
         Task<CarViewModel> GetCarAsync(Guid id);
         Task<GeneralResponse> CreateCarAsync(CreateCarDto newCar);
-        Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCategoryDto newCar);
+        Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCarDto newCar);
         Task<GeneralResponse> DeleteCarAsync(Guid id);
     }
 }

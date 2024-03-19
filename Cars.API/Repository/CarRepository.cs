@@ -102,7 +102,7 @@ namespace Cars.API.Repository
             return cars;
         }
 
-        public async Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCategoryDto newCar)
+        public async Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCarDto newCar)
         {
             var update = await _dbContext.Cars
                 .FirstOrDefaultAsync(p => p.Id == id);

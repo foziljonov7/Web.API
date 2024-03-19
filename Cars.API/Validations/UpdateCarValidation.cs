@@ -4,7 +4,7 @@ using Cars.API.Data;
 
 namespace Cars.API.Validations
 {
-    public class UpdateCarValidation : AbstractValidator<UpdateCategoryDto>
+    public class UpdateCarValidation : AbstractValidator<UpdateCarDto>
     {
         public UpdateCarValidation(AppDbContext dbContext)
         {
