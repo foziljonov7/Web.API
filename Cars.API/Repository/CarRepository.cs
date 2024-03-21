@@ -119,5 +119,34 @@ namespace Cars.API.Repository
             await _dbContext.SaveChangesAsync();
             return new GeneralResponse(true, "Successfully updated");
         }
+
+        public async Task<GeneralResponse> SellCarAsync(Guid carId, int quantity, double price)
+        {
+            var car = await _dbContext.Cars.FindAsync(carId);
+
+            if (car == null)
+                return new GeneralResponse(false, "Car not found");
+
+            if (quantity <= 0)
+                return new GeneralResponse(false, "Quantity should be greater than 0");
+
+            if (car.Quantity == 0)
+                car.Status = Status.Inactive;
+
+            var sold = new Sold
+            {
+                Id = Guid.NewGuid(),
+                CarId = car.Id,
+                Quantity = quantity,
+                Price = price,
+                TotalPrice = quantity * price,
+                SoldDate = DateTime.UtcNow.AddHours(5)
+            };
+
+            _dbContext.SoldCars.Add(sold);
+            await _dbContext.SaveChangesAsync();
+
+            return new GeneralResponse(true, $"{quantity} car(s) sold successfully");
+        }
     }
 }

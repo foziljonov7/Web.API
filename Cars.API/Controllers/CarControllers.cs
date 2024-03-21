@@ -1,62 +1,152 @@
-﻿using Cars.API.Dtos;
-using Cars.API.Repository;
-using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Cars.API.Data;
+using Cars.API.Dtos;
+using Cars.API.Entities;
+using Cars.API.Response;
+using Microsoft.EntityFrameworkCore;
 
-namespace Cars.API.Controllers
+namespace Cars.API.Repository
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CarControllers : ControllerBase
+    public class CarRepository : ICarRepository
     {
-        private readonly ICarRepository services;
-        private readonly IValidator<CreateCarDto> createValidator;
-        private readonly IValidator<UpdateCarDto> updateValidator;
+        private readonly AppDbContext _dbContext;
 
-        public CarControllers(
-            ICarRepository services,
-            IValidator<CreateCarDto> createValidator,
-            IValidator<UpdateCarDto> updateValidator)
+        public CarRepository(AppDbContext dbContext)
         {
-            this.updateValidator = updateValidator;
-            this.createValidator = createValidator;
-            this.services = services;
+            _dbContext = dbContext;
+        }
+        public async Task<GeneralResponse> CreateCarAsync(CreateCarDto newCar)
+        {
+            var car = new Car
+            {
+                Id = Guid.NewGuid(),
+                Model = newCar.Model,
+                Price = newCar.Price,
+                Probeg = newCar.Probeg,
+                Color = newCar.Color,
+                Engine = newCar.Engine,
+                CategoryId = newCar.CategoryId,
+                Status = Status.Active
+            };
+
+            if (car is null)
+                return new GeneralResponse(false, "Is null");
+
+            await _dbContext.Cars.AddAsync(car);
+            await _dbContext.SaveChangesAsync();
+
+            return new GeneralResponse(true, "Successfully created");
         }
 
-        [HttpGet("/")]
-        public async Task<IActionResult> GetCarsAsync()
-            => Ok(await services.GetCarsAsync());
-
-        [HttpGet("Car/{id}")]
-        public async Task<IActionResult> GetCarAsync([FromRoute] Guid id)
-            => Ok(await services.GetCarAsync(id));
-
-        [HttpPost("Create")]
-        public async Task<IActionResult> CreateCarAsync([FromBody] CreateCarDto newDto)
+        public async Task<GeneralResponse> DeleteCarAsync(Guid id)
         {
-            var validationResult = await createValidator.ValidateAsync(newDto);
+            var product = await _dbContext.Cars
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (!validationResult.IsValid)
-                return Ok(validationResult.Errors);
+            if (product is null)
+                return new GeneralResponse(false, "Is null");
 
-            return Ok(await services.CreateCarAsync(newDto));
+            _dbContext.Cars.Remove(product);
+            _dbContext.SaveChanges();
+            return new GeneralResponse(true, "Successfully deleted");
         }
 
-        [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateCarAsync(
-            [FromRoute] Guid id,
-            UpdateCarDto dto)
+        public async Task<Car> GetCarAsync(Guid id)
         {
-            var validationResult = await updateValidator.ValidateAsync(dto);
+            var car = await _dbContext.Cars
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (!validationResult.IsValid)
-                return Ok(validationResult.Errors);
+            if (car is null)
+                return null;
 
-            return Ok(await services.UpdateCarAsync(id, dto));
+            var difference = DateTime.UtcNow.AddHours(5) - car.Created;
+
+            if (difference.TotalDays <= 365 && car.Probeg < 10000)
+                car.Status = Status.New;
+
+            if (car.Probeg > 10000 && car.Probeg <= 100000)
+                car.Status = Status.InGood;
+
+            if (car.Probeg > 100000)
+                car.Status = Status.InBad;
+
+            await _dbContext.SaveChangesAsync();
+
+            return car;
         }
 
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteCarAsync([FromRoute] Guid id)
-            => Ok(await services.DeleteCarAsync(id));
+        public async Task<List<Car>> GetCarsAsync()
+        {
+            var cars = await _dbContext.Cars
+                .Include(c => c.Category)
+                .ToListAsync();
+
+            if (cars is null)
+                return null;
+
+            foreach (var car in cars)
+            {
+                var difference = DateTime.UtcNow.AddHours(5) - car.Created;
+
+                if (difference.TotalDays <= 365 && car.Probeg < 10000)
+                    car.Status = Status.New;
+
+                if (car.Probeg > 10000 && car.Probeg < 100000)
+                    car.Status = Status.InGood;
+
+                if (car.Probeg > 100000)
+                    car.Status = Status.InBad;
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return cars;
+        }
+
+        public async Task<GeneralResponse> UpdateCarAsync(Guid id, UpdateCarDto newCar)
+        {
+            var update = await _dbContext.Cars
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (update is null)
+                return new GeneralResponse(false, "Is null");
+
+            update.Model = newCar.Model;
+            update.Price = newCar.Price;
+            update.Probeg = newCar.Probeg;
+            update.Color = newCar.Color;
+            update.Engine = newCar.Engine;
+
+            await _dbContext.SaveChangesAsync();
+            return new GeneralResponse(true, "Successfully updated");
+        }
+
+        public async Task<GeneralResponse> SellCarAsync(Guid carId, int quantity, double price)
+        {
+            var car = await _dbContext.Cars.FindAsync(carId);
+
+            if (car == null)
+                return new GeneralResponse(false, "Car not found");
+
+            if (quantity <= 0)
+                return new GeneralResponse(false, "Quantity should be greater than 0");
+
+            if (car.Quantity == 0)
+                car.Status = Status.Inactive;
+
+            var sold = new Sold
+            {
+                Id = Guid.NewGuid(),
+                CarId = car.Id,
+                Quantity = quantity,
+                Price = price,
+                TotalPrice = quantity * price,
+                SoldDate = DateTime.UtcNow.AddHours(5)
+            };
+
+            _dbContext.SoldCars.Add(sold);
+            await _dbContext.SaveChangesAsync();
+
+            return new GeneralResponse(true, $"{quantity} car(s) sold successfully");
+        }
     }
 }

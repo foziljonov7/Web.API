@@ -15,4 +15,13 @@ namespace Cars.API.Entities
         public double TotalPrice { get; set; }
         public DateTime SoldDate { get; set; }
     }
+
+    public enum Status
+    {
+        Active,
+        Inactive,
+        New,
+        InGood,
+        InBad
+    }
 }
