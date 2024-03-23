@@ -10,6 +10,7 @@ namespace Cars.API.Helpers
         {
             CreateMap<Car, CarViewModel>();
             CreateMap<Category, CategoryViewModel>();
+            CreateMap<SoldViewModel, SoldViewModel>();
         }
     }
 }
