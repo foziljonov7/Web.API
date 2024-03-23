@@ -6,9 +6,9 @@ namespace Cars.API.Repository
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetCategories();
+        Task<List<Category>> GetCategoriesAsync();
         Task<Category> GetCategoryAsync(int id);
-        Task<GeneralResponse> CreateCategoryAsync();
-        Task<List<Car>> GetCategoryByCarasync(int categoryId);
+        Task<GeneralResponse> CreateCategoryAsync(string name);
+        Task<List<Car>> GetCategoryByCarAsync(int categoryId);
     }
 }

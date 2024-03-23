@@ -18,7 +18,7 @@ namespace Cars.API.Repository
 
         public object Name { get; private set; }
 
-        public async Task<GeneralResponse> CreateCategoryAsync()
+        public async Task<GeneralResponse> CreateCategoryAsync(string name)
         {
             if (name is null)
                 return new GeneralResponse(false, "Name is null");
@@ -33,13 +33,7 @@ namespace Cars.API.Repository
             return new GeneralResponse(true, "Successfully created");
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is CategoryRepository repository &&
-                   EqualityComparer<AppDbContext>.Default.Equals(_dbcontext, repository._dbcontext);
-        }
-
-        public async Task<List<Category>> GetCategories()
+        public async Task<List<Category>> GetCategoriesAsync()
          => await _dbcontext.Categories.ToListAsync();
 
         public async Task<Category> GetCategoryAsync(int id)
@@ -53,7 +47,7 @@ namespace Cars.API.Repository
             return category;
         }
 
-        public async Task<List<Car>> GetCategoryByCarasync(int categoryId)
+        public async Task<List<Car>> GetCategoryByCarAsync(int categoryId)
         {
             var category = await _dbcontext.Cars
                 .Where(c => c.CategoryId == categoryId)
