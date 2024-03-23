@@ -5,6 +5,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Cars.API.Validations;
 using Cars.API.Repository;
+using Cars.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStrings = builder.Configuration.GetConnectionString("localhost");
@@ -16,14 +17,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(connectionStrings));
 
+//Repositories
+builder.Services.ConfigureRepository();
+
 //Services
-builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<ICarServices, CarServices>();
+builder.Services.ConfigureService();
+
+//Mapper
 builder.Services.AddAutoMapper(typeof(Program));
 
 //Validators
-builder.Services.AddTransient<IValidator<CreateCarDto>, CreateCarValidation>();
-builder.Services.AddTransient<IValidator<UpdateCarDto>, UpdateCarValidation>();
+builder.Services.ConfigureValidators();
 
 var app = builder.Build();
 
