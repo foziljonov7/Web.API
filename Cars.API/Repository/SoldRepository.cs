@@ -17,7 +17,7 @@ namespace Cars.API.Repository
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (sold is null)
-                return null;
+                throw new InvalidOperationException($"Sold with Id: {id} not found");
 
             return sold;
         }

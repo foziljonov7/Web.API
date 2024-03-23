@@ -28,8 +28,8 @@ namespace Cars.API.Repository
                 Name = name;
             };
             
-            await _dbcontext.SaveChangesAsync();
             await _dbcontext.Categories.AddAsync(category);
+            await _dbcontext.SaveChangesAsync();
             return new GeneralResponse(true, "Successfully created");
         }
 
@@ -42,7 +42,7 @@ namespace Cars.API.Repository
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (category is null)
-                return null;
+                throw new InvalidOperationException($"Category with Id: {id} not found");
 
             return category;
         }
@@ -54,7 +54,7 @@ namespace Cars.API.Repository
                 .ToListAsync();
 
             if (category is null)
-                return null;
+                throw new InvalidOperationException($"Category not found");
 
             return category;
         }
