@@ -5,6 +5,7 @@
         New,
         InGood,
         InBad,
-        Active
+        Active,
+        SoldOut
     }
 }
